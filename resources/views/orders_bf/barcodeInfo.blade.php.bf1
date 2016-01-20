@@ -1,0 +1,137 @@
+@extends('_layouts.default')
+
+
+@section('headjs')
+<script language="javascript" src="/js/LodopFuncs.js"></script>
+<object  id="LODOP_OB" classid="clsid:2105C259-1E0C-4534-8141-A753534CB4CA" width=0 height=0> 
+		<embed id="LODOP_EM" type="application/x-print-lodop" width=0 height=0></embed>
+</object>
+@stop
+
+@section('main')
+<div class="container">
+	
+<div class="row">
+ <form action="/orders/addShippingCode" method="POST">
+          <input type="hidden" name="_token" value="{{ csrf_token() }}">
+          <input type="hidden" name="orderid" value="{{ $orders->id}}"> 
+          <label>物流单号</label>
+          <input type="text" id="code" name="code" class="form-control" >
+          <button type="submit" class="btn btn-lg btn-success col-lg-12">确认</button>
+  </form>
+</div>
+
+<div class="row">
+  <div class="span12">
+   
+    <div class="row">
+      <div class="span4">订单号  ： {{ $orders->taopix_orderid }}</div>
+      <div class="span4">联系人名称：{{$orders->shipping_contact}}</div>
+      <div class="span4">用户id: {{ $orders->userid }}</div>
+      <div class="span4">电话号码: {{$orders->phone}}</div>
+      <div class="span4">邮箱: {{$orders->email}}</div>
+      <div class="span4">地址: {{ $orders->address}}</div>
+      <div class="span4">订单日期: {{ $orders->date_created}}</div>
+      <div class="span4">优惠劵名称: {{$orders->voucher_name}}</div>
+      <div class="span4">优惠劵码: {{$orders->voucher_code}}</div>
+      <div class="span4">优惠金额: {{$orders->voucher_price}}</div>
+      <div class="span4">支付方式: {{$orders->payment_method}}</div>
+      <div class="span4">支付交易id: {{$orders->payment_transaction_id}}</div>
+      <div class="span4">支付状态: {{$orders->payment_status}}</div>
+      <div class="span4">物流价格: {{$orders->shipping_price}}</div>
+      <div class="span4">物流单号: {{$orders->shipping_code}}</div>
+      <div class="span4">订单总计: {{$orders->total}}</div>
+      <div class="span4">实际支付总金额: {{$orders->total_actual}}</div>
+      
+      <div class="span4">物流类型 {{$orders->shipping_name}}</div>
+
+      
+    </div>
+
+  </div>
+    </div>
+    
+    <br>
+   <h4> 产品(item)</h4>
+       
+     <div class="row">
+  <div class="span12">
+   
+    <div class="row">
+      <div class="span4">订单号  ： {{ $orders->id }}</div>
+      <div class="span4">名称：{{ $orders->name }}</div>
+      <div class="span4">用户id: {{ $orders->userid }}</div>
+      <div class="span4">数量: {{ $orders->count }}</div>
+      <div class="span4">价格: {{ $orders->price }}</div>
+      <div class="span4">商品代码: {{ $orders->code }}</div>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+	// 打印物流单
+	function printNow() 
+	{
+			var LODOP = getLodop();
+			//LODOP.SET_PRINT_MODE("CATCH_PRINT_STATUS",true);
+			LODOP.PRINT_INIT("雅昌影像物流单");
+			LODOP.SET_PRINT_PAGESIZE (1,2300,1270,"");  // 设置打印纸质大小，单位mm(毫米)
+			LODOP.ADD_PRINT_TEXTA("sender_name",107,29,100,20,"雅昌影像");
+			LODOP.ADD_PRINT_TEXTA("sender_address",137,28,249,45,"");
+			LODOP.ADD_PRINT_TEXTA("sender_company",191,28,247,20,"雅昌影像");
+			LODOP.ADD_PRINT_TEXTA("sender_tel",216,29,247,20,"400600688");
+			LODOP.ADD_PRINT_TEXTA("re_name",111,372,100,20,"{{$orders->shipping_contact}}");
+			LODOP.ADD_PRINT_TEXTA("re_destination",111,533,110,20,"{{ $orders->province}}");
+			LODOP.ADD_PRINT_TEXTA("re_address",142,372,253,42,"{{ $orders->address}}");
+			LODOP.ADD_PRINT_TEXTA("re_company",192,371,253,20,"");
+			LODOP.ADD_PRINT_TEXTA("re_tel",215,372,254,20,"{{ $orders->phone}}");
+			LODOP.ADD_PRINT_TEXTA("sender_note",373,372,261,43,"");
+			
+			if (LODOP.SET_PRINTER_INDEX(5)) {
+					LODOP.PRINT();
+			}
+			else {
+					alert("选择打印机失败");
+			}
+			//LODOP.PREVIEW();
+			
+			/*
+			//LODOP.PREVIEW();
+			
+			if( LODOP.GET_VALUE('PRINT_STATUS_OK', job) )
+					alert("打印成功");
+			else {
+					alert("失败~");
+			}
+			*/
+	}
+	
+	
+	function getStatuMessage(statusID) { 
+		var messages="";
+		if (statusID & 1) messages += "已暂停 -";
+		if (statusID & 2) messages += "错误 -";
+		if (statusID & 4) messages += "正删除 -";
+		if (statusID & 8) messages += "进入队列 -";
+		if (statusID & 16) messages += "正在打印 -";
+		if (statusID & 32) messages += "脱机 -";
+		if (statusID & 64) messages += "缺纸 -";
+		if (statusID & 128) messages += "打印结束 -";
+		if (statusID & 256) messages += "已删除 -";
+		if (statusID & 512) messages += "堵了 -";
+		if (statusID & 1024) messages += "用户介入 -";
+		if (statusID & 2048) messages += "正在重新启动 -";
+		return messages;
+	}
+	
+	
+	$(function(){
+　　	printNow();
+　}); 
+</script>
+       
+@stop
+
+

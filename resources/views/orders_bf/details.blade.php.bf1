@@ -1,0 +1,56 @@
+@extends('_layouts.default')
+
+@section('main')
+
+
+ <h4>订单信息(order)</h4>
+<div class="row">
+  <div class="span12">
+   
+    <div class="row">
+      <div class="span4">订单号  ： {{ $orders->taopix_orderid }}</div>
+      <div class="span4">联系人名称：{{$orders->name}}</div>
+      <div class="span4">用户id: {{ $orders->userid }}</div>
+      <div class="span4">电话号码: {{$orders->phone}}</div>
+      <div class="span4">邮箱: {{$orders->email}}</div>
+      <div class="span4">地址: {{ $orders->address}}</div>
+      <div class="span4">订单日期: {{ $orders->date_created}}</div>
+      <div class="span4">优惠劵名称: {{$orders->voucher_name}}</div>
+      <div class="span4">优惠劵码: {{$orders->voucher_code}}</div>
+      <div class="span4">优惠金额: {{$orders->voucher_price}}</div>
+      <div class="span4">支付方式: {{$orders->payment_method}}</div>
+      <div class="span4">支付交易id: {{$orders->payment_transaction_id}}</div>
+      <div class="span4">支付状态: {{$orders->payment_status}}</div>
+      <div class="span4">物流价格: {{$orders->shipping_price}}</div>
+      <div class="span4">物流单号: {{$orders->shipping_code}}</div>
+      <div class="span4">订单总计: {{$orders->total}}</div>
+      <div class="span4">实际支付总金额: {{$orders->total_actual}}</div>
+      
+      <div class="span4">物流类型 {{$orders->shipping_name}}</div>
+
+      
+    </div>
+
+  </div>
+    </div>
+    
+    <br>
+   <h4> 产品(item)</h4>
+       
+     <div class="row">
+  <div class="span12">
+   
+    <div class="row">
+      <div class="span4">订单号  ： {{ $orders->id }}</div>
+      <div class="span4">名称：{{ $orders->name }}</div>
+      <div class="span4">用户id: {{ $orders->userid }}</div>
+      <div class="span4">数量: {{ $orders->count }}</div>
+      <div class="span4">价格: {{ $orders->price }}</div>
+      <div class="span4">商品代码: {{ $orders->code }}</div>
+    </div>
+  </div>
+    </div>
+       
+	
+			
+@endsection
