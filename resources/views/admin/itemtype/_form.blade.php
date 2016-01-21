@@ -3,7 +3,7 @@
              名称
     </label>
     <div class="col-md-8">
-        <input type="text" class="form-control" name="name" id="name" value="{{ $name }}">
+        <input type="text" class="form-control" name="name" id="name" value="{{ $data['name'] }}">
     </div>
 </div>
 
@@ -12,8 +12,8 @@
     <label for="meta_description" class="col-md-3 control-label">
          分组  </label>
     <div class="col-md-8">
-        <textarea class="form-control" id="desc" name="desc" rows="3">
-            {{ $attr_group }}
+        <textarea class="form-control" id="attr_group" name="attr_group" rows="3">
+            {{ $data['attr_group'] }}
         </textarea>
     </div>
 </div>
@@ -26,19 +26,19 @@
     <div class="col-md-7">
         <label class="radio-inline">
             <input type="radio" name="reverse_direction" id="reverse_direction"
-                    @if (! $status)
+                    @if (!$data['status'])
                         checked="checked"
                     @endif
                      value="0"> 
-             下架
+             启用
         </label>
         <label class="radio-inline">
             <input type="radio" name="reverse_direction"
-                @if ($status)
+                @if ($data['status'])
                     checked="checked"
                 @endif
                 value="1"> 
-            上架
+             停用
         </label>
     </div>
 </div>

@@ -38,13 +38,17 @@
                             <td class="hidden-sm">{{ $value->sort }}</td>
                         
                             <td>
-                                <!--
+                                
                                 <a href="{{ url('admin/item/details/'.$value->id) }} " class="btn btn-xs btn-info">
                                     <i class="fa fa-edit"></i> 查看
-                                </a>-->
+                                </a>
                                 
                                 <a href="{{ url('admin/item/edit/'.$value->id) }} " class="btn btn-xs btn-info">
                                     <i class="fa fa-edit"></i> 编辑
+                                </a>
+								
+								<a href="{{ url('admin/item/edit/'.$value->id) }} " class="btn btn-xs btn-info">
+                                    <i class="fa fa-edit"></i> 删除
                                 </a>
                                 
                             </td>

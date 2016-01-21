@@ -29,7 +29,7 @@ Route::get('admin/role/assign', 'Admin\RoleController@assign');
 Route::get('admin/role/addPermissions','Admin\RoleController@addPermissions');
 Route::get('admin/role/check','Admin\RoleController@check');
 Route::get('admin/role/create','Admin\RoleController@create');
-Route::post('admin/role/store','Admin\RoleController@store');
+Route::post('admin/role/store/{id}','Admin\RoleController@store');
 Route::get('admin/role/edit/{id}','Admin\RoleController@edit');
 Route::post('admin/role/update/{id}',['as' => 'admin.role.update', 'uses' => 'Admin\RoleController@update']);
 
@@ -69,15 +69,24 @@ Route::post('admin/attribute/save', 'Admin\AttributeController@save');
 Route::get('admin/attribute/create', 'Admin\AttributeController@create');
 Route::get('admin/attribute/attrlist/{id}', 'Admin\AttributeController@attrlist');
 
+Route::get('admin/attribute/edit/{id}', 'Admin\AttributeController@edit');
+Route::post('admin/attribute/store/{id}', ['as'=>'admin.attribute.store', 'uses'=>'Admin\AttributeController@store']);
 
+//商品
 Route::get('admin/itemcat/index', 'Admin\ItemCatController@index');
 Route::get('admin/item/index', 'Admin\ItemController@index');
 Route::post('admin/item/save', 'Admin\ItemController@save');
 Route::get('admin/item/select', 'Admin\ItemController@select');
 
+//商品类型
 Route::get('admin/itemtype/index', ['as' => 'admin.itemtype.index', 'uses' => 'Admin\ItemTypeController@index']);
 Route::get('admin/itemtype/create', 'Admin\ItemTypeController@create');
-Route::post('admin/itemType/save', 'Admin\ItemTypeController@save');
+Route::post('admin/itemtype/save', 'Admin\ItemTypeController@save');
+
+Route::get('admin/itemtype/edit/{id}', 'Admin\ItemTypeController@edit');
+Route::post('admin/itemtype/store/{id}',['as'=>'admin.itemtype.store', 'uses'=>'Admin\ItemTypeController@store'] );
+
+
 Route::get('admin/item/getItemType', 'Admin\ItemController@getItemType');
 Route::get('admin/item/details/{id}', 'Admin\ItemController@details');
 Route::get('admin/item/edit/{id}', 'Admin\ItemController@edit');
@@ -130,11 +139,13 @@ Route::post('itemCat/save', 'ItemCatController@save');
 
 Route::get('category/index', 'CategoryController@index');
 
+//购物车
 Route::get('cart/add/{id}', 'CartController@add');
 Route::get('cart/index', 'CartController@index');
 Route::get('cart/checkout', 'CartController@checkout');
 Route::get('cart/createOrder', 'CartController@createOrder');
 
+//上传
 Route::get('admin/upload', 'Admin\UploadController@index');
 // 
 Route::post('admin/upload/file', 'Admin\UploadController@uploadFile');

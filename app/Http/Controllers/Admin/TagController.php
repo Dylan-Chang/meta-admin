@@ -44,13 +44,14 @@ class TagController extends Controller {
 
     /**
      * Store a newly created resource in storage.
-     *
+     * 编辑保存
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store() {
+    public function store($id) {
 
-        $tag = new Tag();
+        //$tag = new Tag();
+        $tag = Tag::findOrFail($id);
         foreach (array_keys($this->fields) as $field) {
             $tag->$field = Input::get($field);
         }

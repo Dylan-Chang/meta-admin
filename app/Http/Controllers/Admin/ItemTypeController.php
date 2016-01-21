@@ -42,4 +42,26 @@ class ItemTypeController extends Controller
         return redirect()->route('admin.itemtype.index');
     }
     
+    public function edit($id){
+         $itemType = ItemType::findOrFail($id); 
+       //  var_dump($itemType);exit;
+         $data = ['id' => $id];
+         foreach (array_keys($this->fields) as $field) {
+             $data[$field] = old($field, $itemType->$field);
+         }
+         return view('admin.itemtype.edit',['data'=>$data]);
+    }
+    
+     public function store($id)
+    {
+        
+        $itemType = ItemType::findOrFail($id);
+
+        foreach (array_keys($this->fields) as $field) {
+            $itemType->$field = Input::get($field);
+        }
+        $itemType->save();
+    
+        return redirect("/admin/itemtype/index")->withSuccess("修改完成!");
+    }
 }

@@ -22,7 +22,7 @@
                         <tr>
                             <th>名称</th>
                             <th>状态</th>
-                            <th class="hidden-sm">排序</th>
+                            <th class="hidden-sm">分组</th>
                         </tr>
                      </thead>
                     <tbody>
@@ -36,7 +36,7 @@
                                 <a href="{{ url('admin/attribute/attrlist/'.$value->id) }} " class="btn btn-xs btn-info">
                                     <i class="fa fa-edit"></i> 属性列表
                                 </a>
-                                <a href="/admin/tag/{{ $value->id }}/edit" class="btn btn-xs btn-info">
+                                <a href="{{ url('admin/itemtype/edit/'.$value->id) }}" class="btn btn-xs btn-info">
                                     <i class="fa fa-edit"></i> 编辑
                                 </a>
                             </td>

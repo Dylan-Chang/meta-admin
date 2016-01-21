@@ -33,8 +33,8 @@
                             <td class="hidden-sm">{{ $value->sort }}</td>
                         
                             <td>
-                                <a href="/admin/tag/{{ $value->id }}/edit" class="btn btn-xs btn-info">
-                                    <i class="fa fa-edit"></i> Edit
+                                <a href="{{url('admin/attribute/edit/'.$value->id)}}" class="btn btn-xs btn-info">
+                                    <i class="fa fa-edit"></i> 编辑
                                 </a>
                             </td>
                         </tr>

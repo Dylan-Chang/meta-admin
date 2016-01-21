@@ -16,11 +16,12 @@ class AttributeController extends Controller {
 
     protected $fields = [
         'attr_name' => '',
-        'status' => 0,
+       // 'status' => 0,
         'sort_order' => 0,
         'attr_values' => '',
         'attr_input_type' => 0,
         'cat_id' =>'',
+        'attr_type'=>'',
     ];
 
     //全部属性
@@ -51,11 +52,12 @@ class AttributeController extends Controller {
     public function create() {
         $itemType = ItemType::all();
         $data = [];
-        $this->fields['attr_type'] = $itemType;
+        
         
         foreach ($this->fields as $field => $default) {
             $data[$field] = old($field, $default);
         }
+        $data['attr_type'] = $itemType;
         // $itemCat = ItemCat::all();
 
         return view("admin.attribute.create", $data);
@@ -85,8 +87,16 @@ class AttributeController extends Controller {
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request) {
+    public function store($id) {
         //
+        $attr = Attribute::findOrFail($id);
+
+        foreach (array_keys($this->fields) as $field) {
+            $attr->$field = Input::get($field);
+        }
+        $attr->save();
+    
+        return redirect("/admin/attribute/index")->withSuccess("修改完成!");
     }
 
     /**
@@ -107,6 +117,15 @@ class AttributeController extends Controller {
      */
     public function edit($id) {
         //
+        $attr = Attribute::findOrFail($id); 
+       //  var_dump($itemType);exit;
+         $data = ['id' => $id];
+         foreach (array_keys($this->fields) as $field) {
+             $data[$field] = old($field, $attr->$field);
+         }
+         $itemType = ItemType::all();
+         
+         return view('admin.attribute.edit',['data'=>$data,'itemType'=>$itemType]);
     }
 
     /**

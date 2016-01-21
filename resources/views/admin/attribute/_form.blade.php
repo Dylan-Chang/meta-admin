@@ -3,7 +3,7 @@
         属性名称
     </label>
     <div class="col-md-8">
-        <input type="text" class="form-control" name="attr_name" id="attr_name" value="{{ $attr_name }}">
+        <input type="text" class="form-control" name="attr_name" id="attr_name" value="{{ $data['attr_name'] }}">
     </div>
 </div>
 
@@ -14,7 +14,7 @@
     <div class="col-md-8">
         <select id="cat_id" name="cat_id" class="form-control" >
             <option>请选择</option>
-            @foreach($attr_type as $value)
+            @foreach($itemType as $value)
             <option value="{{ $value->id }}">{{ $value->name }}</option>
             @endforeach
         </select>
@@ -28,7 +28,7 @@
     <div class="col-md-7">
         <label class="radio-inline">
             <input type="radio" onclick="radioClicked(0)" checked="true" value="0"  name="attr_input_type"
-                   @if (! $attr_input_type)
+                   @if (! $data['attr_input_type'])
                    checked="checked"
                    @endif>
 
@@ -36,7 +36,7 @@
         </label>
         <label class="radio-inline">
             <input type="radio" onclick="radioClicked(1)" value="1" name="attr_input_type"
-                   @if ($attr_input_type)
+                   @if ($data['attr_input_type'])
                    checked="checked"
                    @endif>
                    从下面的列表中选择（一行代表一个可选值） 
@@ -44,7 +44,7 @@
         </label>
         <label class="radio-inline">
             <input type="radio" onclick="radioClicked(2)" value="2" name="attr_input_type"
-                   @if ($attr_input_type)
+                   @if ($data['attr_input_type'])
                    checked="checked"
                    @endif>
                    多行文本框 
